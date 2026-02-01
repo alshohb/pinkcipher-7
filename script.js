@@ -85,18 +85,54 @@ let dodges = 0;
 const maxDodges = 6;
 let coolingDown = false;
 
+function rectsOverlap(a, b, pad = 10) {
+  return !(
+    a.right + pad < b.left ||
+    a.left - pad > b.right ||
+    a.bottom + pad < b.top ||
+    a.top - pad > b.bottom
+  );
+}
+
 function moveNoButton() {
   if (coolingDown) return;
 
   coolingDown = true;
   dodges++;
 
-  const x = Math.floor(Math.random() * 260) - 130;
-  const y = Math.floor(Math.random() * 200) - 100;
+  const yesRect = yesBtn.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
+
+  // Try multiple random moves until we find one that does NOT overlap YES
+  let x = 0;
+  let y = 0;
+  let attempts = 0;
+
+  while (attempts < 25) {
+    attempts++;
+
+    // Bigger range feels fun, but still safe
+    const tryX = Math.floor(Math.random() * 280) - 140; // -140..140
+    const tryY = Math.floor(Math.random() * 220) - 110; // -110..110
+
+    // Predict the "future" No button rectangle after translate
+    const futureNo = {
+      left: noRect.left + tryX,
+      right: noRect.right + tryX,
+      top: noRect.top + tryY,
+      bottom: noRect.bottom + tryY
+    };
+
+    if (!rectsOverlap(futureNo, yesRect, 14)) {
+      x = tryX;
+      y = tryY;
+      break;
+    }
+  }
 
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-  // little delay so it doesn't double-trigger on mobile
+  // Small delay so mobile touchstart + click does not double count
   setTimeout(() => {
     coolingDown = false;
   }, 180);
@@ -108,6 +144,7 @@ function moveNoButton() {
       noBtn.classList.add("yes");
       noBtn.style.transform = "translate(0px, 0px)";
 
+      // Now it behaves like YES
       noBtn.onclick = onYes;
     }, 400);
   }
@@ -119,4 +156,3 @@ noBtn.addEventListener("mouseenter", moveNoButton);
 // mobile + click
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
-
