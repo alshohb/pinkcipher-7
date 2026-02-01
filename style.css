@@ -183,3 +183,27 @@ body{
   font-size: 13px;
   margin-top: 12px;
 }
+.nextStep{
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ff1f7f;
+}
+
+@keyframes pulsePop {
+  0%   { transform: scale(1);   box-shadow: 0 14px 40px rgba(37, 211, 102, 0.22); }
+  50%  { transform: scale(1.04); box-shadow: 0 18px 55px rgba(37, 211, 102, 0.35); }
+  100% { transform: scale(1);   box-shadow: 0 14px 40px rgba(37, 211, 102, 0.22); }
+}
+
+.waBtn{
+  font-size: 18px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  margin-top: 12px;
+}
+
+.waBtn.attention{
+  animation: pulsePop 0.95s infinite;
+}
+
