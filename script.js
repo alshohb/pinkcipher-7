@@ -11,6 +11,7 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const result = document.getElementById("result");
 const waBtn = document.getElementById("waBtn");
+const nextStep = document.getElementById("nextStep");
 
 // Loading screen animation
 let dotCount = 0;
@@ -152,5 +153,6 @@ noBtn.addEventListener("mouseenter", moveNoButton);
 // mobile + click
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
+
 
 
