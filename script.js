@@ -71,12 +71,8 @@ function onYes() {
   const waUrl = getWhatsAppUrl();
   waBtn.href = waUrl;
   waBtn.classList.remove("hidden");
-
-  // Try to open WhatsApp automatically after a moment
-  setTimeout(() => {
-    window.location.href = waUrl;
-  }, 2500);
 }
+
 
 yesBtn.addEventListener("click", onYes);
 
@@ -156,4 +152,5 @@ noBtn.addEventListener("mouseenter", moveNoButton);
 // mobile + click
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
+
 
