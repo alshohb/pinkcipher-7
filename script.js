@@ -6,12 +6,14 @@ const whatsappMessage = "YESSSSS OF COURSE BABY 💖💖💖 I'm your Valentine 
 const loader = document.getElementById("loader");
 const loaderDots = document.getElementById("loaderDots");
 const card = document.getElementById("card");
+let answered = false;
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const result = document.getElementById("result");
 const waBtn = document.getElementById("waBtn");
 const nextStep = document.getElementById("nextStep");
+const buttonsWrap = document.querySelector(".buttons");
 
 // Loading screen animation
 let dotCount = 0;
@@ -66,12 +68,20 @@ function confettiBurst() {
 
 // YES flow
 function onYes() {
+  if (answered) return;
+  answered = true;
+
+  buttonsWrap.style.display = "none";
   result.textContent = "YAYYYY 💖💖💖 I LOVE YOU. Locked in. Valentine secured 😌🔐";
   confettiBurst();
 
   const waUrl = getWhatsAppUrl();
   waBtn.href = waUrl;
   waBtn.classList.remove("hidden");
+  waBtn.classList.add("attention");
+
+  nextStep.classList.remove("hidden");
+  waBtn.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 
@@ -153,6 +163,7 @@ noBtn.addEventListener("mouseenter", moveNoButton);
 // mobile + click
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
+
 
 
 
