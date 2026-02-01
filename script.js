@@ -82,34 +82,41 @@ yesBtn.addEventListener("click", onYes);
 
 // NO button behavior
 let dodges = 0;
-const maxDodges = 3;
+const maxDodges = 6;
+let coolingDown = false;
 
 function moveNoButton() {
-  dodges += 1;
+  if (coolingDown) return;
 
-  // move around (works for mobile tap too)
-  const x = Math.floor(Math.random() * 220) - 110; // -110..110
-  const y = Math.floor(Math.random() * 160) - 80;  // -80..80
+  coolingDown = true;
+  dodges++;
+
+  const x = Math.floor(Math.random() * 260) - 130;
+  const y = Math.floor(Math.random() * 200) - 100;
+
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-  if (dodges >= maxDodges) {
-    // turn into a YES style button
-    noBtn.textContent = "Fine. I’m yours 💖";
-    noBtn.classList.remove("no");
-    noBtn.classList.add("yes");
+  // little delay so it doesn't double-trigger on mobile
+  setTimeout(() => {
+    coolingDown = false;
+  }, 180);
 
-    // reset transform so it looks normal again
-    noBtn.style.transform = "translate(0px, 0px)";
+  if (dodges === maxDodges) {
+    setTimeout(() => {
+      noBtn.textContent = "Fine. I’m yours 💖";
+      noBtn.classList.remove("no");
+      noBtn.classList.add("yes");
+      noBtn.style.transform = "translate(0px, 0px)";
 
-    // now clicking it acts like YES
-    noBtn.removeEventListener("click", moveNoButton);
-    noBtn.removeEventListener("touchstart", moveNoButton);
-    noBtn.removeEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("click", onYes);
+      noBtn.onclick = onYes;
+    }, 400);
   }
 }
 
-// Desktop hover, mobile tap
+// desktop
 noBtn.addEventListener("mouseenter", moveNoButton);
+
+// mobile + click
 noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
+
