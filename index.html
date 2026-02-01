@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decrypting…</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Loading screen -->
+  <div id="loader" class="loader" aria-live="polite">
+    <div class="loaderBox">
+      <div class="lock">💖🔐</div>
+      <div class="loaderTitle">Decrypting love letter</div>
+      <div class="loaderSub" id="loaderDots">Please wait</div>
+    </div>
+  </div>
+
+  <!-- Main card -->
+  <main id="card" class="card hidden">
+    <div class="topRow">
+      <div class="badge">💌</div>
+      <div class="nameLine">Isra, my baby 💖</div>
+    </div>
+
+    <img class="hero" src="couple.png" alt="Us" />
+
+    <h1 class="title">Important question</h1>
+    <p class="msg">
+      I made this little page just for you.<br />
+      <strong>Will you be my Valentine?</strong>
+    </p>
+
+    <div class="buttons">
+      <button id="yesBtn" class="btn yes">Yes 💖</button>
+      <button id="noBtn" class="btn no">No 😅</button>
+    </div>
+
+    <p id="result" class="result" aria-live="polite"></p>
+
+    <a id="waBtn" class="waBtn hidden" href="#" target="_blank" rel="noopener">
+      Open WhatsApp 💬
+    </a>
+
+    <p class="hint">Hint: the correct answer is Yes 😌</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
